@@ -18,18 +18,21 @@ public final class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
-        Button clickyButton = (Button)this.findViewById(R.id.clicky);
-        clickyButton.setOnClickListener((OnClickListener)(new OnClickListener() {
-            public final void onClick(View it) {
-                Intent Intent = new Intent((Context)MainActivity.this, ClickyActivity.class);
-                MainActivity.this.startActivity(Intent);
-            }
-        }));
     }
 
-    @SuppressLint("WrongConstant")
-    public final void buttonInfo(@NotNull View view) {
-        Intrinsics.checkNotNullParameter(view, "view");
-        Toast.makeText((Context)this, (CharSequence)"Ming Chen, chen.ming1@northeastern.edu", 0).show();
+
+    public void buttonInfo(View view) {
+        Intent intent = new Intent(getApplicationContext(), AboutMeActivity.class);
+        startActivity(intent);
+    }
+
+    public void clickButton(View view) {
+        Intent intent = new Intent(getApplicationContext(), ClickyActivity.class);
+        startActivity(intent);
+    }
+
+    public void linkButton(View view) {
+        Intent intent = new Intent(getApplicationContext(), LinkActivity.class);
+        startActivity(intent);
     }
 }
