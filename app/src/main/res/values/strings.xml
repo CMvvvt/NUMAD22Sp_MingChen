@@ -2,4 +2,6 @@
     <string name="app_name">NUMAD22Sp_MingChen</string>
     <string name="item_name">Item name</string>
     <string name="item_url">Item URL</string>
+    <string name="success">Link created!</string>
+    <string name="fail">Link create failed!</string>
 </resources>

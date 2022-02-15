@@ -4,20 +4,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class LinkActivity extends AppCompatActivity {
+
 
     private ArrayList<UrlItem> itemList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -31,6 +37,9 @@ public class LinkActivity extends AppCompatActivity {
 
     private static final String KEY_OF_INSTANCE = "KEY_OF_INSTANCE";
     private static final String NUMBER_OF_ITEMS = "NUMBER_OF_ITEMS";
+    private static final String URL_NOT_MATCH = "Input Url is not valid!";
+    private static final String NO_NAME_OR_URL = "Please enter Name and Url!";
+    private static final String SUCCESS_CREATED = "Url created!";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +58,23 @@ public class LinkActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String nameStr =  name.getText().toString();
                 String urlStr = url.getText().toString();
+
+
                 if(nameStr == null || nameStr.length() == 0 || urlStr == null || urlStr.length() == 0) {
-                    makeToast("Enter a url!");
-                } else {
-                    int pos = 0;
-                    addItem(pos);
+                    showSnackBar(NO_NAME_OR_URL);
+                    return;
                 }
+
+                //Check if the entered url is valid or not
+                if(!Patterns.WEB_URL.matcher(urlStr).matches()) {
+                    showSnackBar(URL_NOT_MATCH);
+                    return;
+                }
+
+                int pos = 0;
+                addItem(pos);
+                showSnackBar(SUCCESS_CREATED);
+
             }
         });
     }
@@ -72,6 +92,14 @@ public class LinkActivity extends AppCompatActivity {
         makeToast("Added your url!");
     }
 
+    @SuppressLint("ResourceType")
+    private void showSnackBar(String s) {
+        Snackbar snackbar;
+        RelativeLayout mainLayout = findViewById(R.id.main_layout);
+
+        snackbar = Snackbar.make(mainLayout, s, Snackbar.LENGTH_SHORT);
+        snackbar.show();
+    }
 
     private void makeToast(String s) {
         if(t != null) t.cancel();
@@ -85,8 +113,7 @@ public class LinkActivity extends AppCompatActivity {
     }
 
     private void initialItemData(Bundle savedInstanceState) {
-        UrlItem item1 = new UrlItem("Google", "https://www.google.com/", false);
-        itemList.add(item1);
+        return;
     }
 
 
@@ -101,7 +128,12 @@ public class LinkActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 String url = itemList.get(position).getItemUrl().toString();
-                makeToast(url);
+
+                // Create correct form for url to open
+                if(!url.startsWith("http://") && !url.startsWith("https://")) {
+                    url = "http://" + url;
+                }
+
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
                 startActivity(intent);
