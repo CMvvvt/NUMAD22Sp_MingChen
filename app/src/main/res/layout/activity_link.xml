@@ -24,7 +24,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginTop="5sp"
             android:ems="10"
-            android:hint="Enter Item Here" />
+            android:hint="Enter Name Here" />
 
         <EditText
             android:id="@+id/url"
@@ -33,18 +33,9 @@
             android:layout_below="@+id/name"
             android:layout_marginLeft="50sp"
             android:ems="10"
-            android:hint="Enter url here" />
+            android:hint="Enter URL Here" />
 
 
-<!--        <ImageView-->
-<!--            android:layout_width="40sp"-->
-<!--            android:layout_height="40sp"-->
-<!--            android:layout_toRightOf="@+id/name"-->
-<!--            android:id="@id/add"-->
-<!--            android:layout_marginLeft="7sp"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:src="@drawable/add_item"-->
-<!--            />-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@id/add"
             android:layout_width="55dp"

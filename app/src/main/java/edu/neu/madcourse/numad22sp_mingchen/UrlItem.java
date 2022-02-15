@@ -6,12 +6,11 @@ import android.net.Uri;
 public class UrlItem {
     private String itemName;
     private String itemUrl;
-    private boolean isChecked;
 
-    public UrlItem(String itemName, String itemUrl, boolean isChecked) {
+
+    public UrlItem(String itemName, String itemUrl) {
         this.itemName = itemName;
         this.itemUrl = itemUrl;
-        this.isChecked = isChecked;
     }
 
     public String getItemName() {
@@ -30,20 +29,12 @@ public class UrlItem {
         this.itemUrl = itemUrl;
     }
 
-    public boolean isChecked() {
-        return isChecked;
-    }
-
-    public void setChecked(boolean checked) {
-        isChecked = checked;
-    }
 
     @Override
     public String toString() {
         return "UrlItem{" +
                 "itemName='" + itemName + '\'' +
                 ", itemUrl='" + itemUrl + '\'' +
-                ", isChecked=" + isChecked +
                 '}';
     }
 

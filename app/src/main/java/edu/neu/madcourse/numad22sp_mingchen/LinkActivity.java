@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -31,13 +33,12 @@ public class LinkActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager uLayoutManager;
     private EditText name;
     private EditText url;
-    private ImageView add;
-    private FloatingActionButton addButton;
+    private FloatingActionButton add;
     private Toast t;
 
     private static final String KEY_OF_INSTANCE = "KEY_OF_INSTANCE";
     private static final String NUMBER_OF_ITEMS = "NUMBER_OF_ITEMS";
-    private static final String URL_NOT_MATCH = "Input Url is not valid!";
+    private static final String URL_NOT_MATCH = "Input Url is invalid!";
     private static final String NO_NAME_OR_URL = "Please enter Name and Url!";
     private static final String SUCCESS_CREATED = "Url created!";
 
@@ -46,20 +47,19 @@ public class LinkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link);
 
-
         name = findViewById(R.id.name);
         url = findViewById(R.id.url);
         add = findViewById(R.id.add);
         init(savedInstanceState);
 
-
+        // Click Listener for add button
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String nameStr =  name.getText().toString();
                 String urlStr = url.getText().toString();
 
-
+                // Check if had inputs
                 if(nameStr == null || nameStr.length() == 0 || urlStr == null || urlStr.length() == 0) {
                     showSnackBar(NO_NAME_OR_URL);
                     return;
@@ -71,25 +71,43 @@ public class LinkActivity extends AppCompatActivity {
                     return;
                 }
 
-                int pos = 0;
-                addItem(pos);
+                //Add item to the list
+                addItem();
                 showSnackBar(SUCCESS_CREATED);
 
             }
         });
     }
 
-    private void addItem(int pos) {
+
+    // Handling Orientation Changes on Android
+    @Override
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
+        int size = itemList == null ? 0 : itemList.size();
+        outState.putInt(NUMBER_OF_ITEMS, size);
+
+        //Generate Key-Value pair for the state
+        for (int i = 0; i < size; i++) {
+            // put itemName information into instance
+            outState.putString(KEY_OF_INSTANCE + i + "0", itemList.get(i).getItemName());
+            // put itemUrl information into instance
+            outState.putString(KEY_OF_INSTANCE + i + "1", itemList.get(i).getItemUrl());
+        }
+        System.out.println(outState.toString());
+        super.onSaveInstanceState(outState);
+    }
+
+
+    private void addItem() {
         name = findViewById(R.id.name);
         url = findViewById(R.id.url);
-        UrlItem item = new UrlItem(name.getText().toString(), url.getText().toString(), false);
+        UrlItem item = new UrlItem(name.getText().toString(), url.getText().toString());
         itemList.add(item);
-
         urlAdapter.notifyDataSetChanged();
 
+        // Set edittext to empty
         name.setText("");
         url.setText("");
-        makeToast("Added your url!");
     }
 
     @SuppressLint("ResourceType")
@@ -112,8 +130,20 @@ public class LinkActivity extends AppCompatActivity {
         createRecyclerView();
     }
 
+
+    // Initialize the data from the savedInstanceState
     private void initialItemData(Bundle savedInstanceState) {
-        return;
+        if(savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_ITEMS)) {
+            if(itemList == null || itemList.size() == 0) {
+                int size = savedInstanceState.getInt(NUMBER_OF_ITEMS);
+                for(int i = 0; i < size; i++) {
+                    String itemName = savedInstanceState.getString(KEY_OF_INSTANCE + i + '0');
+                    String itemUrl = savedInstanceState.getString(KEY_OF_INSTANCE + i + '1');
+                    UrlItem item = new UrlItem(itemName, itemUrl);
+                    itemList.add(item);
+                }
+            }
+        }
     }
 
 
