@@ -1,5 +1,8 @@
 package edu.neu.madcourse.numad22sp_mingchen;
 
+import android.content.Intent;
+import android.net.Uri;
+
 public class UrlItem {
     private String itemName;
     private String itemUrl;
@@ -44,7 +47,4 @@ public class UrlItem {
                 '}';
     }
 
-    public void onItemClick(int position) {
-        isChecked = !isChecked;
-    }
 }

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -36,27 +38,39 @@ public class LinkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_link);
 
 
+        name = findViewById(R.id.name);
+        url = findViewById(R.id.url);
+        add = findViewById(R.id.add);
         init(savedInstanceState);
 
 
-//        add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String text =  input.getText().toString();
-//                if(text == null || text.length() == 0) {
-//                    makeToast("Enter an item.");
-//                } else {
-//                    int pos = 0;
-//                    addItem(pos);
-//                }
-//            }
-//        });
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String nameStr =  name.getText().toString();
+                String urlStr = url.getText().toString();
+                if(nameStr == null || nameStr.length() == 0 || urlStr == null || urlStr.length() == 0) {
+                    makeToast("Enter a url!");
+                } else {
+                    int pos = 0;
+                    addItem(pos);
+                }
+            }
+        });
     }
 
-//    private void addItem(int pos) {
-//        name = findViewById(R.id.name);
-//        url = findViewById(R.id.url);
-//    }
+    private void addItem(int pos) {
+        name = findViewById(R.id.name);
+        url = findViewById(R.id.url);
+        UrlItem item = new UrlItem(name.getText().toString(), url.getText().toString(), false);
+        itemList.add(item);
+
+        urlAdapter.notifyDataSetChanged();
+
+        name.setText("");
+        url.setText("");
+        makeToast("Added your url!");
+    }
 
 
     private void makeToast(String s) {
@@ -86,7 +100,11 @@ public class LinkActivity extends AppCompatActivity {
         ItemClickListener itemClickListener = new ItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                itemList.get(position).onItemClick(position);
+                String url = itemList.get(position).getItemUrl().toString();
+                makeToast(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
                 urlAdapter.notifyItemChanged(position);
             }
         };
