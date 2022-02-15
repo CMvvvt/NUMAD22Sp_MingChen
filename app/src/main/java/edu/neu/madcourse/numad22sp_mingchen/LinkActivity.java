@@ -26,7 +26,6 @@ import java.util.regex.Pattern;
 
 public class LinkActivity extends AppCompatActivity {
 
-
     private ArrayList<UrlItem> itemList = new ArrayList<>();
     private RecyclerView recyclerView;
     private UrlAdapter urlAdapter;

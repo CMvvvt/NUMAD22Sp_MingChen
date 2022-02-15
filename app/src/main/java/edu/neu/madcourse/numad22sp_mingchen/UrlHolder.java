@@ -29,17 +29,5 @@ public class UrlHolder extends RecyclerView.ViewHolder {
             }
         });
 
-//        checkBox.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(listener != null) {
-//                    int position = getLayoutPosition();
-//                    if (position != RecyclerView.NO_POSITION) {
-//                        listener.onCheckBoxCLick(position);
-//                    }
-//                }
-//            }
-//        });
-
     }
 }
