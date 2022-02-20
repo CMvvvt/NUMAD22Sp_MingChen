@@ -33,7 +33,7 @@ public class LinkActivity extends AppCompatActivity {
     private EditText name;
     private EditText url;
     private FloatingActionButton add;
-    private Toast t;
+
 
     private static final String KEY_OF_INSTANCE = "KEY_OF_INSTANCE";
     private static final String NUMBER_OF_ITEMS = "NUMBER_OF_ITEMS";
@@ -118,11 +118,7 @@ public class LinkActivity extends AppCompatActivity {
         snackbar.show();
     }
 
-    private void makeToast(String s) {
-        if(t != null) t.cancel();
-        t = Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT);
-        t.show();
-    }
+
 
     private void init(Bundle savedInstanceState) {
         initialItemData(savedInstanceState);
