@@ -35,4 +35,9 @@ public final class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), LinkActivity.class);
         startActivity(intent);
     }
+
+    public void locationButton(View view) {
+        Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
+        startActivity(intent);
+    }
 }
