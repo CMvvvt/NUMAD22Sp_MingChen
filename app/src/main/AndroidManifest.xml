@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.neu.madcourse.numad22sp_mingchen">
-
     <!-- Always include this permission -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -13,6 +12,9 @@
         android:roundIcon="@mipmap/ming_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NUMAD22Sp_MingChen">
+        <activity
+            android:name=".serviceActivity"
+            android:exported="false" />
         <activity
             android:name=".LocationActivity"
             android:exported="false" />

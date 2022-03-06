@@ -40,4 +40,8 @@ public final class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
         startActivity(intent);
     }
+
+    public void serviceButton(View view) {
+        startActivity(new Intent(getApplicationContext(), serviceActivity.class));
+    }
 }
