@@ -9,7 +9,10 @@
         <entry key="app/src/main/res/layout/activity_link.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_location.xml" value="0.5354166666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_service.xml" value="0.3109375" />
+        <entry key="app/src/main/res/layout/image_item.xml" value="0.34791666666666665" />
         <entry key="app/src/main/res/layout/item_card.xml" value="0.31927083333333334" />
+        <entry key="app/src/main/res/layout/layout_dialog.xml" value="0.34791666666666665" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3328125" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ming_laucher.xml" value="0.3328125" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ming_launcher.xml" value="0.4786458333333333" />
